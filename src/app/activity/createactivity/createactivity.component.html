@@ -1,0 +1,11 @@
+<div class="activityform">
+<form [formGroup]="createActivityForm" (ngSubmit)="onSubmit()">
+    <input type="text" placeholder="Create Activity" formControlName="activityDetails"><br><br>
+    <textarea placeholder="description" formControlName="description"></textarea><br>
+    <button [disabled]="!createActivityForm.valid">Submit</button>
+</form>
+<div *ngIf="loading" class ="loader"></div>
+</div>
+
+<div class="errdiv" *ngIf="this.isError">{{this.errorMessage}}</div>
+<div class = "successdiv" *ngIf="this.isSuccess">Data Saved successfully</div>

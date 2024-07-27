@@ -1,0 +1,12 @@
+<div class ="signup-container" *ngIf="isSignUpEnabled">
+
+<form  [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+    <input type="text" placeholder="firstname" formControlName="firstName">
+    <input type="text" placeholder="lastname" formControlName="lastName">
+    <input type="text" placeholder="username" formControlName="userName">
+    <input type="text" placeholder="Email" formControlName="email">
+    <input type="password" placeholder="password" formControlName="password">
+    <input type="password" placeholder="confirm password" formControlName="confirmpassword">
+    <button class="btn-signup">Sign Up</button>
+</form>
+</div>

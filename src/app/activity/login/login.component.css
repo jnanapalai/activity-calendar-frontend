@@ -1,0 +1,48 @@
+.login-container form {
+    margin-top: 10px;
+    display: grid;
+    background-color: white;
+    border: 1px solid;
+    padding: 0 10px;
+    input {
+        width: 70%;
+        /* padding: 0 10px; */
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+        margin-bottom: 30px;
+        border: none;
+        border-bottom: 2px solid purple;
+        
+    }
+
+    input:focus {
+        
+        outline: none;
+    }
+
+    .btn-login {
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+        margin-bottom: 30px;
+        padding: 0 10px;
+        height: 40px;
+        background-color: purple;
+        color: white;
+        border: 1px solid;
+        cursor: pointer;
+        font-size: 20px;
+       
+    }
+
+    .btn-login:hover {
+        color: purple;
+        background-color: white;
+    }
+}
+
+.err-msg {
+    color:red;  
+}

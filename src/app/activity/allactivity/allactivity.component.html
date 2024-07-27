@@ -1,0 +1,19 @@
+<!-- <form>
+    <input type="text" placeholder="Enter activity">
+</form> -->
+
+<div class = "tabcontainer" [@fadeInOut] style="width: 100%;height:100%;">
+<div class="tab" style="width: 100%;height:12%;">
+    <button (click) = "loadShowActivityComponent()" class="tablink" [ngStyle]="
+        { 'background-color': showActivityComponent ? 'white': 'purple' ,
+        'color': showActivityComponent ? 'black': 'white' }
+         ">Show Activity</button>
+    <button (click) = "loadCreateActivityComponent()"class="tablink" [ngStyle]="{ 'background-color': createActivityComponent ? 'white': 'purple' ,'color': createActivityComponent ? 'black': 'white' }">Create Activity</button>
+    <button (click) = "loadMainActivity(this.clickedDate)" id="close"></button>
+</div>
+
+<div class = "tabcontent" style="width: 100%;height:88%;">
+<app-showactivity style="width: 100%;height:100%;"  [inputFromAllActivity]="clickedDate" *ngIf="showActivityComponent" ></app-showactivity>
+<app-createactivity style="width: 100%;height:100%;"  [inputFromAllActivity]="clickedDate" *ngIf="createActivityComponent"></app-createactivity>
+</div>
+</div>

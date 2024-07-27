@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* .square {
+  display: inline-block;
+  height: 160px;
+  width: 100px;
+  background-color: white;
+  border: 0.5px solid black;
+  padding-left: 100px;
+  margin-left: 15px;
+}
+
+.circle {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid red;
+  text-align: center;
+  padding:4px;
+}
+
+.date {
+  margin-left: -93px;
+  margin-top: 2px;
+} */
+</style>
+</head>
+<body>
+  <div class ="header">
+    <!-- <button [routerLink]="[ { outlets: { welcomepage: ['welcome'] } } ]" class ="logout" (click)="onLogOut()" skipLocationChange>LogOut</button> -->
+    <button class ="logout" (click)="onLogOut()">LogOut</button>
+  </div>
+  <div class="yearbar">
+    <button (click)="onPrev()" class="previous round">&#8249;</button>
+
+    {{currentYear}}
+    <button (click) = "onNext()" class="next round">&#8250;</button>
+  </div>
+  <div class = all-month-container>
+    <div *ngFor="let m of months;let j=index" class ="month-container">
+      <div *ngIf="m.active" style="height: 100%;">
+      <div  class="month-grid">{{m.month}}</div>
+      <div class="week-grid">
+        <div>Su</div>
+        <div>Mo</div>
+        <div>Tu</div>
+        <div>We</div>
+        <div>Th</div>
+        <div>Fr</div>
+        <div>Sa</div>
+      </div>
+      <div class="date-grid">
+
+       <!--This section put blank if the day of month belong to previous year-->
+          <button *ngFor="let x of ' '.repeat(findNumberOfBlankDateInitial(m.monthNumber)).split(''); let j = index" >
+            <time datetime="2019-02-01">
+            </time>
+            <div>
+              <small>
+              </small>
+            </div>
+          </button>
+       <!--End Here-->
+
+       <!--This section put the date-->
+
+        <button  [disabled] = "!m.active" (click)="createActivity(m,i)" *ngFor="let d of counter(m.days); let i=index">
+          <time datetime="2019-02-01">{{i+1}}
+          </time>
+          <div *ngIf="compareMonthAndDate(i,m.monthNumber) > 0" class="count">
+            <small> 
+              {{compareMonthAndDate(i,m.monthNumber)}}
+            </small>
+          </div>
+        </button>
+       <!--Put the date-->  
+
+      </div>
+    </div>  
+    <router-outlet></router-outlet>
+    <div *ngIf="!m.active" style="width:100% ;height:100%">
+      <app-allactivity [inputFromApp]="clickedDate" [inputMonths] = "months"></app-allactivity>
+    </div>  
+  </div>  
+</div>
+</body>
+<router-outlet name="outletcalendarpage"></router-outlet>
+</html> 
+

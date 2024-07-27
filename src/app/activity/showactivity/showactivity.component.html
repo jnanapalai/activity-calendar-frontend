@@ -1,0 +1,32 @@
+ <!-- This div shows how many pending activity and completed activity prsent for a perticular date -->
+  <div *ngIf="!(activityList?.length === 0 || activityList === undefined)" class="summary">
+    <h4>Pending :</h4><p class ="pending">{{getPendingActivities()}}</p> <h4>Complete :</h4><p class ="completed">{{getCompletedActivities()}}</p>
+  </div>
+<!--End Here-->
+
+<!-- Success div and Error div to show success and errormessage when activity get completed and removed -->
+  <div class="successdiv" *ngIf="isSuccess" >{{responseMessage}}</div>
+  <div class="errdiv" *ngIf="isError">{{responseMessage}}</div>
+<!--End Here-->
+
+
+
+<div style="width: 100%;height:100%; margin-top:20px;overflow-y: auto;max-height: 77%;">
+
+  <!-- Thid div shows when no acitvity present in specific date -->
+  <div *ngIf="activityList?.length === 0 || activityList === undefined" class="no-data">No Data To Show</div>
+
+<!-- This div show all activities and details present in a specific date with option to remove or mark it complete -->
+  <div *ngFor="let activity of activityList; let i = index" class="activity-container">
+    <div class="accordian-header" (click)="toggle(i)" [ngStyle]="{'background-color': activity.activityStatus === 'ASSIGNED' ? '#FFBF00': '#2ECC71' ,'color': activity.activityStatus === 'ASSIGNED' ? '1B4F72': 'white' }">
+      <p>{{activity.activityDetails}}</p>
+      <button class="cmp" *ngIf="activity.activityStatus === 'ASSIGNED'" (click)="completeActivity(activity.activityId, $event)" [ngStyle]="{'color': activity.activityStatus === 'ASSIGNED' ? '1B4F72': 'white' }">Complete</button>
+      <button class="rmv" *ngIf="activity.activityStatus === 'ASSIGNED'" (click)="removeActivity(activity.activityId, $event)" [ngStyle]="{'color': activity.activityStatus === 'ASSIGNED' ? '1B4F72': 'white' }">Remove</button>
+      <span class="tooltiptext">Click to See Details</span>
+    </div>
+      <div class="accordian-content" [ngClass]="currentIndex === i ?'visible':'not-visible'">
+      <p>{{activity.description}}</p>
+    </div>
+  </div>
+<!--End here-->
+</div>

@@ -1,0 +1,18 @@
+<div class="welcome" *ngIf="isVisible">
+    <div class="summary">
+        <h2>Welcome to Actvity Calendar</h2>
+        <p>Create all your planned actvity though out the year.Track the progress of activity of any date, remove or complete it</p>
+        <app-summaryslider [images]="images"></app-summaryslider>
+    </div>
+    <div class ="divider"></div>
+    <div class ="details">
+        <!-- <a (click)="goToShowCalendar()">Go To Calendar</a> -->
+        <h4>Manage Activity</h4>
+        <button [routerLink]="[{ outlets: { outletwelcomepage: ['signup'] } }]" class="signup" >Sign Up</button>
+        <button [routerLink]="[{ outlets: { outletwelcomepage: ['login'] } }]" class="login" >Login</button><br>
+        <router-outlet name="outletwelcomepage"></router-outlet>
+        <!-- <app-login></app-login>
+        <app-signup></app-signup> -->
+    </div>
+</div>
+<router-outlet name="outletcalendarpage"></router-outlet>

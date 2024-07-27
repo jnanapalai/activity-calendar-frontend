@@ -1,0 +1,148 @@
+.date-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.date-grid button {
+    flex-basis: 14%;
+}
+
+.week-grid {
+    display:flex;
+    margin-top: 5px;
+}
+.week-grid div {
+ flex:1;
+ text-align: center;
+} 
+
+.date-grid button:hover, .date-grid button:active, .date-grid button:visited,.date-grid button:focus{
+    background-color:grey;
+    cursor: pointer;
+}
+
+.round:hover, .round:active, .round:visited,.round:focus{
+  background-color:grey;
+  cursor: pointer;
+}
+
+.date-grid button {
+    border: none;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color:white;
+}
+
+.round {
+  border: none;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color:white;
+}
+
+.all-month-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.month-container {
+    flex-basis: 22%;
+    width: 200px;
+    height: 305px;
+    margin-left: 15px;
+    margin-top:15px;
+    border: solid 0.5px;
+}
+
+.month-grid{
+    text-align: center;
+    -webkit-text-fill-color: white;
+    border: none ;
+    background-color: purple;
+    padding: 10px;
+}
+
+  time{
+    background-color: none;
+  }
+
+  .count{
+    color: white;
+    height: 25px;
+    width: 25px;
+    background-color: purple;
+    border-radius: 50%;
+    align-items: center;
+    position:absolute;
+    margin-left: 24px;
+    margin-top: -28px;
+  }
+
+  small {
+    position:absolute;
+    margin-top: 5px;
+    margin-left: -3px;
+  }
+
+
+  .yearbar {
+    width: 90%;
+    margin-left: 15px;
+    color: black;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+
+  .round {
+    text-decoration: none;
+    display: inline-block;
+    font-size: 127%;
+    background: none;
+  }
+
+  .previous {
+    color: black;
+  }
+  
+  .next {
+    color: black;
+  }
+
+  .header {
+    text-align: right;
+    width: 90%;
+    margin-left: 15px;
+  }
+
+  .logout {
+    color: purple;
+    background-color: white;
+    border: 1px solid purple;
+    cursor: pointer;
+    border: 0;
+    border-radius: 4px;
+    font-weight: 600;
+    /* margin: 0 10px; */
+    width: 200px;
+    padding: 10px 0;
+    box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+    transition: 0.4s;
+    margin-top:10px;
+  }
+
+
+  .logout:hover {
+    color: white;
+    background-color: purple;
+    border: 2px solid;
+  }
+
+  .logout:focus {
+    color: white;
+    background-color: purple;
+    border: 2px solid;
+  }
+
