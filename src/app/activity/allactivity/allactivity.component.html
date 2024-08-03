@@ -14,6 +14,6 @@
 
 <div class = "tabcontent" style="width: 100%;height:88%;">
 <app-showactivity style="width: 100%;height:100%;"  [inputFromAllActivity]="clickedDate" *ngIf="showActivityComponent" ></app-showactivity>
-<app-createactivity style="width: 100%;height:100%;"  [inputFromAllActivity]="clickedDate" *ngIf="createActivityComponent"></app-createactivity>
+<app-createactivity style="width: 100%;height:100%;" [inputForAllActivityCount]="allActivityCount"  [inputFromAllActivity]="clickedDate" *ngIf="createActivityComponent"></app-createactivity>
 </div>
 </div>

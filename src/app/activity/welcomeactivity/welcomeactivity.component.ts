@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Route, Router } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-welcomeactivity',
@@ -9,7 +10,7 @@ import { NavigationEnd, Route, Router } from '@angular/router';
 export class WelcomeactivityComponent {
   isVisible = true;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authenticationService: AuthenticationService) {
        router.events.subscribe(data=> {
         if(data instanceof NavigationEnd) {
           if(data.url.includes("showcalendar")) {
@@ -51,6 +52,10 @@ export class WelcomeactivityComponent {
   goToShowCalendar() {
     this.isVisible = false;
     this.router.navigate(["/showcalendar"]);
+  }
+
+  authenticate(): void {
+     this.authenticationService.authenticate();
   }
    
 }

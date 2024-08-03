@@ -72,11 +72,14 @@
         <button  [disabled] = "!m.active" (click)="createActivity(m,i)" *ngFor="let d of counter(m.days); let i=index">
           <time datetime="2019-02-01">{{i+1}}
           </time>
+        
+           <!-- <div *ngIf="isContentLoaded"> -->
           <div *ngIf="compareMonthAndDate(i,m.monthNumber) > 0" class="count">
             <small> 
               {{compareMonthAndDate(i,m.monthNumber)}}
             </small>
           </div>
+        <!-- </div> -->
         </button>
        <!--Put the date-->  
 
@@ -84,7 +87,7 @@
     </div>  
     <router-outlet></router-outlet>
     <div *ngIf="!m.active" style="width:100% ;height:100%">
-      <app-allactivity [inputFromApp]="clickedDate" [inputMonths] = "months"></app-allactivity>
+      <app-allactivity [inputAllActivityCount]= "acitvityCount" [inputFromApp]="clickedDate" [inputMonths] = "months"></app-allactivity>
     </div>  
   </div>  
 </div>

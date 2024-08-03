@@ -9,7 +9,8 @@
         <!-- <a (click)="goToShowCalendar()">Go To Calendar</a> -->
         <h4>Manage Activity</h4>
         <button [routerLink]="[{ outlets: { outletwelcomepage: ['signup'] } }]" class="signup" >Sign Up</button>
-        <button [routerLink]="[{ outlets: { outletwelcomepage: ['login'] } }]" class="login" >Login</button><br>
+        <!--<button [routerLink]="[{ outlets: { outletwelcomepage: ['login'] } }]" class="login" >Login</button><br>-->
+        <button (click)="authenticate()" class="login" >Login</button>
         <router-outlet name="outletwelcomepage"></router-outlet>
         <!-- <app-login></app-login>
         <app-signup></app-signup> -->

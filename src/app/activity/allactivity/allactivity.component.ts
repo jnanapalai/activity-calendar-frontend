@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { elementAt } from 'rxjs';
 import {style, state, animate, transition, trigger} from '@angular/animations';
+import { Activitycount } from '../../model/activitycount';
 
 @Component({
   selector: 'app-allactivity',
@@ -22,11 +23,13 @@ export class AllactivityComponent implements OnInit {
 
   @Input('inputFromApp') clickedDate: any;
   @Input('inputMonths') months:any;
+  @Input('inputAllActivityCount') allActivityCount:any;
 
   showActivityComponent = false;
   createActivityComponent = false;
 
   ngOnInit(): void {
+    console.log("Getting all activity count from showcaledar", this.allActivityCount)
     this.loadShowActivityComponent();
   }
 

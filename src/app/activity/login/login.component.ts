@@ -29,24 +29,26 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.authenticate(this.loginForm.value.userNameOrEmail, 
-      this.loginForm.value.password).subscribe({
-        next: (data) => {
-          console.log("data is" , data)
-          this.router.navigate([{ outlets: { outletcalendarpage: ['showcalendar'] } }])
-          sessionStorage.setItem('username', this.loginForm.value.userNameOrEmail);
-          //sessionStorage.setItem('password', this.loginForm.value.password);
-          sessionStorage.setItem('token', 'Bearer '+data)
-          this.isLoginInvalid = false;
-        },
-        error: (e) => {
-          console.error("error is", e)
-          this.isLoginInvalid=true;
-          setTimeout(() => {
-            this.isLoginInvalid = false;
-        }, 5000);
-        },
-        complete: () => console.info('complete') 
-      });
+    // this.authService.authenticate(this.loginForm.value.userNameOrEmail, 
+    //   this.loginForm.value.password).subscribe({
+    //     next: (data) => {
+    //       console.log("data is" , data)
+    //       this.router.navigate([{ outlets: { outletcalendarpage: ['showcalendar'] } }])
+    //       sessionStorage.setItem('username', this.loginForm.value.userNameOrEmail);
+    //       //sessionStorage.setItem('password', this.loginForm.value.password);
+    //       sessionStorage.setItem('token', 'Bearer '+data)
+    //       this.isLoginInvalid = false;
+    //     },
+    //     error: (e) => {
+    //       console.error("error is", e)
+    //       this.isLoginInvalid=true;
+    //       setTimeout(() => {
+    //         this.isLoginInvalid = false;
+    //     }, 5000);
+    //     },
+    //     complete: () => console.info('complete') 
+    //   });
+    this.authService.authenticate();
+    this.router.navigate([{ outlets: { outletcalendarpage: ['showcalendar'] } }]);
   }
 }

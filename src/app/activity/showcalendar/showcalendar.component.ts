@@ -1,36 +1,41 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+
 
 
 import { ActivityService } from '../../services/activity.service';
 import { Activitycount } from '../../model/activitycount';
+import { AuthenticationService } from '../../services/authentication.service';
+import { first, interval, retry, retryWhen, startWith, Subscription, switchMap, takeUntil, timer } from 'rxjs';
 
 @Component({
   selector: 'app-showcalendar',
   templateUrl: './showcalendar.component.html',
   styleUrl: './showcalendar.component.css'
 })
+
 export class ShowcalendarComponent implements OnInit {
-  constructor(private router: Router, private route: ActivatedRoute, private activityService: ActivityService) {
-    // router.events.subscribe(data=> {
-    //   if(data instanceof NavigationEnd) {
-    //     if(data.url === '/showcalendar') {
-    //       this.isCalendarVisible = true;
-    //     } else {
-    //       this.isCalendarVisible = false;
-    //     }
-    //   }
-    //  })
+  constructor(private router: Router, private route: ActivatedRoute, private activityService: ActivityService,
+    private authenticationService: AuthenticationService
+  ) {
+    router.events.subscribe(data=> {
+      if(data instanceof NavigationEnd) {
+        if(data.url === '/showcalendar') {
+          this.isCalendarVisible = true;
+        } else {
+          this.isCalendarVisible = false;
+        }
+      }
+     })
 
   }
-
-
 
   @Input("inputFromParent") isCalendarVisible: any;
   clickedDate="";
   title = 'activitycalendar';
   acitvityCount!:Activitycount[];
+  isContentLoaded:boolean = false;
   dateButtonDisabled:boolean =  false;
   currentYear!:number;
   weekLoop = 6;
@@ -61,15 +66,40 @@ export class ShowcalendarComponent implements OnInit {
     m.active = false;
     this.clickedDate = (date+1)+"/"+m.monthNumber+"/"+this.currentYear;
   }
-
+  timeInterval!: Subscription;
   ngOnInit(): void {
-    this.activityService.countListActivityByActivityDate()
-    .subscribe(data=> {
-      
+    this.timeInterval = interval(100).pipe(startWith(0),
+    switchMap(()=>this.activityService.countListActivityByActivityDate()),
+    retry({ count: 5, delay: this.shouldRetry }),
+    first(),
+    takeUntil(timer(50000000))
+  )
+    .subscribe((data)=> {
       this.acitvityCount=data;
+      this.isContentLoaded = true;
       console.log("activity count by date", this.acitvityCount);
     })
+    
+    // this.activityService.countListActivityByActivityDate().subscribe((data)=> {
+      
+    //   this.acitvityCount=data;
+    //   this.isContentLoaded = true;
+    //   console.log("activity count by date", this.acitvityCount);
+    // })
     this.getcurrentYear();
+  }
+
+  shouldRetry(error: HttpErrorResponse) {
+    // Example for catching specific error code as well
+    if (error.status === 401) {
+      return timer(500); // Adding a timer from RxJS to return observable to delay param.
+    }
+
+    throw error;
+  }
+
+  getActivityCount() {
+    return this.acitvityCount;
   }
 
   getcurrentYear() {
@@ -77,11 +107,18 @@ export class ShowcalendarComponent implements OnInit {
     this.currentYear = d.getFullYear();
   }
 
+  getDateWithOrWithoutZero(date:number) {
+      if (date.toString().length === 1) {
+        return '0'+date;
+      }
+      return date;
+  }
+
   compareMonthAndDate(date: number, monthNumber: string): number {
-       let dateWithMonthAndYear = this.currentYear+"-"+monthNumber+"-"+(date+1);
+       let dateWithMonthAndYear = this.currentYear+"-"+monthNumber+"-"+this.getDateWithOrWithoutZero(date+1);
        if (!(this.acitvityCount === undefined)) {
         const filteredDate = this.acitvityCount.filter(data=> {
-          return (data.activityDate.toString() == dateWithMonthAndYear)
+          return (new Date(data.activityDate).toISOString().split("T")[0] == dateWithMonthAndYear)
          });
          if(filteredDate.length > 0) {
             return filteredDate[0].countTotal;
@@ -126,9 +163,10 @@ export class ShowcalendarComponent implements OnInit {
   }
 
   onLogOut() {
-    sessionStorage.removeItem('username');
-    sessionStorage.removeItem('token');
-    this.router.navigate([{ outlets: { outletcalendarpage: ['welcome'] } }]);
+    // sessionStorage.removeItem('username');
+    // sessionStorage.removeItem('token');
+    this.authenticationService.logOut();
+    //this.router.navigate([{ outlets: { outletcalendarpage: ['welcome'] } }]);
   }
 
 }
