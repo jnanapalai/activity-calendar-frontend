@@ -80,4 +80,8 @@ export class ActivityService  {
     return this.httpCleint.delete("/api/activity/"+activityId);
   }
 
+  getAllUsers() {
+    return this.httpCleint.get("/api/getAllUser");
+  }
+
 }

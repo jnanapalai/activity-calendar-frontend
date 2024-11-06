@@ -10,5 +10,4 @@ export const authconfig: AuthConfig = {
     strictDiscoveryDocumentValidation: true,
     scope: 'openid profile email offline_access',
     waitForTokenInMsec: 5000
-   
 }

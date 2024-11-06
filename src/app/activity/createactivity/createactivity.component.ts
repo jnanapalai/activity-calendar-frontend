@@ -5,6 +5,8 @@ import {style, state, animate, transition, trigger} from '@angular/animations';
 import { Activitycount } from '../../model/activitycount';
 import { DatePipe } from '@angular/common';
 import { count } from 'rxjs';
+import { User } from '../../model/user';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-createactivity',
@@ -30,22 +32,46 @@ export class CreateactivityComponent implements OnInit {
   errorMessage!:String;
   isError!:boolean;
   isSuccess!: boolean;
+  userList!: User[];
+  isDateAllowedToCreate:boolean = true;
+  userGroupOfLoggedInUser!: string;
 
   createActivityForm:any;
-  constructor(private formBuilder: FormBuilder, private activtiyService: ActivityService
+  constructor(private formBuilder: FormBuilder, 
+    private activtiyService: ActivityService, 
+    private authenticatioService: AuthenticationService
     
-  ) {
-
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.userGroupOfLoggedInUser = this.authenticatioService.getUserGroup();
+    if (this.userGroupOfLoggedInUser === 'Organisation') {
+      this.activtiyService.getAllUsers().subscribe(data=>{
+        console.log("All users are ", data);
+        this.userList = data as User[];
+      })
+    }
+    
     this.createActivityForm = this.formBuilder.group({
       activityDetails: ['',Validators.required],
+      assignedFor: ['self'],
+      assignedTo:[],
       description: ['',Validators.required],
       activityDate: [this.getDate()]
     } 
     )
+    this.isDateAllowedToCreate = this.checkTodaysDateIsAfterActivitydate(this.getDate())
+  }
+  
+  checkTodaysDateIsAfterActivitydate=(date: string): boolean => {
+    const [day, month, year] = date.split("/").map(Number);
+    let todayDate = new Date();
+    todayDate.setHours(0, 0, 0, 0);
+    return (new Date(year, month-1,day ) >= todayDate)
+  }
 
+  resetAssignedTo = ()=> {
+    this.createActivityForm.get('assignedTo').reset();
   }
 
   convertYearMonthDate(date: string): string {

@@ -4,6 +4,11 @@
     <input type="text" placeholder="firstname" formControlName="firstName">
     <input type="text" placeholder="lastname" formControlName="lastName">
     <input type="text" placeholder="username" formControlName="userName">
+    <span class="account-container">
+    <input type ="radio" name = "accountType" value="personal" class="accounttype" formControlName="accountType"> <label>Personal</label> 
+    <input type ="radio" name = "accountType" value="Organisation" class="accounttype" formControlName="accountType"> <label>Organisation</label>
+    </span>
+    <input type="text" *ngIf="this.signUpForm.value.accountType === 'Organisation'" placeholder="Comapany Name" formControlName="company">
     <input type="text" placeholder="Email" formControlName="email">
     <input type="password" placeholder="password" formControlName="password">
     <input type="password" placeholder="confirm password" formControlName="confirmpassword">

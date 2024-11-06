@@ -54,5 +54,15 @@ export class AuthenticationService {
     return from(this.oauthService.getAccessToken());
   }
 
+  getUserGroup(): string {
+    const claims = this.oauthService.getIdentityClaims();
+    return claims['groups'] ? claims['groups'][0] : undefined;
+  }
+
+
+  getLoggedInUser() {
+    this.oauthService.getIdentityClaims
+  }
+
 
 }

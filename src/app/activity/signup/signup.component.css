@@ -5,7 +5,7 @@
     border: 1px solid;
     padding: 0 10px;
 }
-    input {
+    input[type="text"],input[type="password"] {
         width: 70%;
         /* padding: 0 10px; */
         margin-left: auto;
@@ -17,7 +17,7 @@
         
     }
 
-    input:focus {
+    input[type="text"]:focus,input[type="password"]:focus {
         
         outline: none;
     }
@@ -42,4 +42,35 @@
         color: purple;
         background-color: white;
     }
+
+input[type="radio"] {
+    /* margin-left: auto;
+    margin-right: auto; */
+    display: inline;
+    margin-top: 15px;
+    margin-bottom: 30px;
+
+}
+
+
+
+.account-container {
+    /* margin-left:auto;
+    margin-right: auto; */
+    margin-left: 50px;
+}
+
+label {
+    color:gray;
+    padding: 0 10px;
+}
+
+.radio-container {
+    display: flex;
+    align-items: center;
+}
+
+.radio-container label {
+    margin-right: 20px; /* Space between radio buttons */
+}
 
